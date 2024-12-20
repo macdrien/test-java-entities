@@ -9,17 +9,21 @@ import com.example.test_entities.dtos.channel.ShortChannelDto;
 import com.example.test_entities.dtos.person.CreatePersonDto;
 import com.example.test_entities.dtos.person.FullPersonDto;
 import com.example.test_entities.dtos.person.ShortPersonDto;
+import com.example.test_entities.dtos.subscription.ShortSubscriptionDto;
 import com.example.test_entities.entities.Person;
 import com.example.test_entities.mappers.ChannelMapper;
 import com.example.test_entities.mappers.PersonMapper;
+import com.example.test_entities.mappers.SubscriptionMapper;
 
 @Component
 public class PersonMapperImpl implements PersonMapper {
 
     private ChannelMapper channelMapper;
+    private SubscriptionMapper subscriptionMapper;
 
-    public PersonMapperImpl(ChannelMapper channelMapper) {
+    public PersonMapperImpl(ChannelMapper channelMapper, SubscriptionMapper subscriptionMapper) {
         this.channelMapper = channelMapper;
+        this.subscriptionMapper = subscriptionMapper;
     }
     
     public FullPersonDto personToFullPersonDto(Person person) {
@@ -33,6 +37,11 @@ public class PersonMapperImpl implements PersonMapper {
                                                 .collect(Collectors.toSet());
         fullDto.setChannels(channelDtos);
 
+        Set<ShortSubscriptionDto> subscriptionDtos = person.getSubscriptions()
+                                                        .stream()
+                                                        .map(subscriptionMapper::subscriptionToShortSubscriptionDto)
+                                                        .collect(Collectors.toSet());
+        fullDto.setSubscriptions(subscriptionDtos);
         return fullDto;
     }
 
@@ -49,6 +58,7 @@ public class PersonMapperImpl implements PersonMapper {
         Person person = new Person();
         person.setUsername(createPersonDto.getUsername());
         person.setChannels(Set.of());
+        person.setSubscriptions(Set.of());
         return person;
     }
 }

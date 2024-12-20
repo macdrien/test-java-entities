@@ -24,6 +24,9 @@ public class Person {
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
     private Set<Channel> channels;
 
+    @OneToMany(mappedBy = "person")
+    private Set<Subscription> subscriptions;
+
     public Long getId() {
         return id;
     }
@@ -48,5 +51,11 @@ public class Person {
         this.channels = channels;
     }
 
-    
+    public Set<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(Set<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
 }
