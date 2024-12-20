@@ -1,13 +1,13 @@
-package com.example.test_entities.dtos;
+package com.example.test_entities.dtos.person;
 
 import java.util.Set;
 
-import com.example.test_entities.entities.Channel;
+import com.example.test_entities.dtos.channel.ShortChannelDto;
 
-public class PersonDto {
+public class FullPersonDto {
     private Long id;
     private String username;
-    private Set<Channel> channels;
+    private Set<ShortChannelDto> channels;
 
     public Long getId() {
         return id;
@@ -21,10 +21,10 @@ public class PersonDto {
     public void setUsername(String username) {
         this.username = username;
     }
-    public Set<Channel> getChannels() {
+    public Set<ShortChannelDto> getChannels() {
         return channels;
     }
-    public void setChannels(Set<Channel> channels) {
+    public void setChannels(Set<ShortChannelDto> channels) {
         this.channels = channels;
     }    
 }
